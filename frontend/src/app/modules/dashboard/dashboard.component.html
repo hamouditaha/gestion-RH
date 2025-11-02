@@ -1,0 +1,95 @@
+<div class="dashboard-container">
+  <h1>Tableau de Bord - Gestion des Présences</h1>
+
+  <!-- Statistics Cards -->
+  <div class="stats-grid">
+    <!-- Total Employees -->
+    <div class="stat-card">
+      <div class="stat-icon">
+        <span class="material-icons">people</span>
+      </div>
+      <div class="stat-content">
+        <h2>{{ stats.totalEmployees }}</h2>
+        <p>Employés Total</p>
+      </div>
+    </div>
+
+    <!-- Present Today -->
+    <div class="stat-card present">
+      <div class="stat-icon">
+        <span class="material-icons">check_circle</span>
+      </div>
+      <div class="stat-content">
+        <h2>{{ stats.presentToday }}</h2>
+        <p>Présents Aujourd'hui</p>
+      </div>
+    </div>
+
+    <!-- Absent Today -->
+    <div class="stat-card absent">
+      <div class="stat-icon">
+        <span class="material-icons">cancel</span>
+      </div>
+      <div class="stat-content">
+        <h2>{{ stats.absentToday }}</h2>
+        <p>Absents Aujourd'hui</p>
+      </div>
+    </div>
+
+    <!-- Total Presences -->
+    <div class="stat-card">
+      <div class="stat-icon">
+        <span class="material-icons">timeline</span>
+      </div>
+      <div class="stat-content">
+        <h2>{{ stats.totalPresences }}</h2>
+        <p>Total Pointages</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="quick-actions">
+    <h2>Actions Rapides</h2>
+    <div class="action-buttons">
+      <button class="action-btn primary" (click)="navigateToModule('qr-scanner')">
+        <span class="material-icons">qr_code_scanner</span>
+        Scanner QR
+      </button>
+      <button class="action-btn accent" (click)="navigateToModule('employees')">
+        <span class="material-icons">person_add</span>
+        Ajouter Employé
+      </button>
+      <button class="action-btn" (click)="navigateToModule('presences')">
+        <span class="material-icons">schedule</span>
+        Voir Présences
+      </button>
+      <button class="action-btn" (click)="navigateToModule('salaries')">
+        <span class="material-icons">attach_money</span>
+        Calculer Salaires
+      </button>
+    </div>
+  </div>
+
+  <!-- Recent Activity -->
+  <div class="recent-activity">
+    <h2>Activité Récente</h2>
+    <div class="activity-card">
+      <div class="activity-item">
+        <span class="activity-chip pointage">Pointage</span>
+        <span>Jean Dupont a pointé son entrée à 08:45</span>
+        <small>il y a 5 min</small>
+      </div>
+      <div class="activity-item">
+        <span class="activity-chip nouveau">Nouveau</span>
+        <span>Marie Martin a été ajoutée au système</span>
+        <small>il y a 1h</small>
+      </div>
+      <div class="activity-item">
+        <span class="activity-chip sortie">Sortie</span>
+        <span>Paul Durand a pointé sa sortie à 17:30</span>
+        <small>il y a 2h</small>
+      </div>
+    </div>
+  </div>
+</div>

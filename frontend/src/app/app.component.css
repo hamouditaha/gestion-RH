@@ -1,0 +1,146 @@
+.app-container {
+  display: flex;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.app-sidenav {
+  width: 250px;
+  background-color: white;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidenav-header {
+  height: 64px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #e0e0e0;
+  background: linear-gradient(135deg, #3f51b5, #5c6bc0);
+  color: white;
+}
+
+.app-icon {
+  font-size: 28px;
+}
+
+.app-title {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.nav-list {
+  list-style: none;
+  padding: 20px 0;
+  margin: 0;
+}
+
+.nav-item {
+  margin: 4px 0;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 20px;
+  text-decoration: none;
+  color: #333;
+  transition: all 0.2s;
+  border-radius: 0 25px 25px 0;
+  margin-right: 8px;
+}
+
+.nav-link:hover {
+  background-color: #f5f5f5;
+  color: #3f51b5;
+}
+
+.nav-link.active {
+  background-color: #e8eaf6;
+  color: #3f51b5;
+  border-left: 4px solid #3f51b5;
+}
+
+.nav-link .material-icons {
+  font-size: 24px;
+  width: 24px;
+  text-align: center;
+}
+
+.main-content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-toolbar {
+  height: 64px;
+  background: white;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn:hover {
+  background-color: #f5f5f5;
+}
+
+.icon-btn .material-icons {
+  font-size: 24px;
+  color: #666;
+}
+
+.main-content {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  background-color: #fafafa;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .app-sidenav {
+    width: 200px;
+  }
+
+  .nav-link span:last-child {
+    display: none;
+  }
+
+  .nav-link {
+    justify-content: center;
+    padding: 16px;
+  }
+
+  .main-content {
+    padding: 16px;
+  }
+
+  .main-toolbar {
+    padding: 0 16px;
+  }
+}

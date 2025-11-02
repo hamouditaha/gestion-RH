@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bulletin de Salaire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            color: #333;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        .company-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .bulletin-title {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        .employee-info, .salary-details {
+            margin-bottom: 20px;
+        }
+        .info-row {
+            display: flex;
+            margin-bottom: 5px;
+        }
+        .label {
+            font-weight: bold;
+            width: 150px;
+        }
+        .value {
+            flex: 1;
+        }
+        .salary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .salary-table th, .salary-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .salary-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .total-row {
+            background-color: #e9ecef;
+            font-weight: bold;
+        }
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="company-name">GESTION PRESENCE</div>
+        <div class="bulletin-title">BULLETIN DE SALAIRE</div>
+    </div>
+
+    <div class="employee-info">
+        <h3>Informations de l'Employé</h3>
+        <div class="info-row">
+            <span class="label">Matricule:</span>
+            <span class="value" th:text="${bulletin.employee.matricule}"></span>
+        </div>
+        <div class="info-row">
+            <span class="label">Nom:</span>
+            <span class="value" th:text="${bulletin.employee.nom + ' ' + bulletin.employee.prenom}"></span>
+        </div>
+        <div class="info-row">
+            <span class="label">Poste:</span>
+            <span class="value" th:text="${bulletin.employee.poste}"></span>
+        </div>
+        <div class="info-row">
+            <span class="label">Email:</span>
+            <span class="value" th:text="${bulletin.employee.email} ?: 'Non spécifié'"></span>
+        </div>
+        <div class="info-row">
+            <span class="label">Période:</span>
+            <span class="value" th:text="${#temporals.format(bulletin.periodeDebut, 'dd/MM/yyyy')} + ' - ' + ${#temporals.format(bulletin.periodeFin, 'dd/MM/yyyy')}"></span>
+        </div>
+    </div>
+
+    <div class="salary-details">
+        <h3>Détails du Salaire</h3>
+        <table class="salary-table">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Montant (€)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Salaire de base</td>
+                    <td th:text="${#numbers.formatDecimal(bulletin.salaireBase, 1, 2)}"></td>
+                </tr>
+                <tr>
+                    <td>Jours travaillés</td>
+                    <td th:text="${bulletin.joursTravailles}"></td>
+                </tr>
+                <tr>
+                    <td>Jours d'absence</td>
+                    <td th:text="${bulletin.joursAbsence}"></td>
+                </tr>
+                <tr>
+                    <td>Total retards (minutes)</td>
+                    <td th:text="${bulletin.totalRetardsMinutes}"></td>
+                </tr>
+                <tr>
+                    <td>Heures supplémentaires</td>
+                    <td th:text="${#numbers.formatDecimal(bulletin.heuresSupplementaires, 1, 2)}"></td>
+                </tr>
+                <tr>
+                    <td>Déduction absences</td>
+                    <td th:text="${'-' + #numbers.formatDecimal(bulletin.deductionAbsences, 1, 2)}"></td>
+                </tr>
+                <tr>
+                    <td>Déduction retards</td>
+                    <td th:text="${'-' + #numbers.formatDecimal(bulletin.deductionRetards, 1, 2)}"></td>
+                </tr>
+                <tr class="total-row">
+                    <td><strong>Salaire net à percevoir</strong></td>
+                    <td th:text="${#numbers.formatDecimal(bulletin.salaireNet, 1, 2)}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer">
+        <p>Ce bulletin est généré automatiquement par le système de gestion des présences.</p>
+        <p>Date de génération: <span th:text="${#temporals.format(#temporals.now(), 'dd/MM/yyyy HH:mm')}"></span></p>
+    </div>
+</body>
+</html>

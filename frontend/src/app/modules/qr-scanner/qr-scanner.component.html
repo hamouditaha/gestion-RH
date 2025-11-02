@@ -1,0 +1,122 @@
+<div class="qr-scanner-container">
+  <div class="header">
+    <h1>Scanner QR Code</h1>
+    <p>Scannez le QR code de l'employé pour enregistrer son pointage</p>
+  </div>
+
+  <div class="scanner-section">
+    <!-- Video Element for Camera -->
+    <div class="video-container" *ngIf="isScanning">
+      <video #videoElement autoplay playsinline muted class="camera-video"></video>
+      <canvas #canvasElement style="display: none;"></canvas>
+
+      <div class="scan-overlay">
+        <div class="scan-frame">
+          <div class="corner corner-tl"></div>
+          <div class="corner corner-tr"></div>
+          <div class="corner corner-bl"></div>
+          <div class="corner corner-br"></div>
+        </div>
+      </div>
+
+      <div class="scan-info" *ngIf="isProcessing">
+        <mat-spinner diameter="30" color="accent"></mat-spinner>
+        <span>Traitement en cours...</span>
+      </div>
+    </div>
+
+    <!-- Scanner Controls -->
+    <div class="scanner-controls">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="startScanning()"
+        [disabled]="isScanning"
+        class="scan-button">
+        <mat-icon>qr_code_scanner</mat-icon>
+        {{ isScanning ? 'Scan en cours...' : 'Démarrer le Scan' }}
+      </button>
+
+      <button
+        mat-button
+        (click)="stopScanning()"
+        [disabled]="!isScanning"
+        class="stop-button">
+        <mat-icon>stop</mat-icon>
+        Arrêter
+      </button>
+    </div>
+
+    <!-- Manual Entry for Testing -->
+    <div class="manual-entry" *ngIf="!isScanning">
+      <mat-form-field appearance="outline" class="manual-input">
+        <mat-label>ID Employé (pour test)</mat-label>
+        <input matInput #manualEmployeeId placeholder="001">
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="manualEntry(manualEmployeeId.value)"
+        [disabled]="!manualEmployeeId.value"
+        class="manual-button">
+        <mat-icon>send</mat-icon>
+        Enregistrer Manuellement
+      </button>
+    </div>
+  </div>
+
+  <!-- Result Display -->
+  <div class="result-section" *ngIf="scanResult || employeeInfo">
+    <mat-card class="result-card">
+      <mat-card-header>
+        <mat-card-title>Résultat du Scan</mat-card-title>
+        <mat-card-subtitle *ngIf="employeeInfo">
+          Pointage enregistré avec succès
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="scan-result">
+          <div class="result-item">
+            <strong>Code QR:</strong> {{ scanResult }}
+          </div>
+
+          <div class="result-item" *ngIf="employeeInfo">
+            <strong>Employé:</strong> {{ employeeInfo.prenom }} {{ employeeInfo.nom }}
+          </div>
+
+          <div class="result-item" *ngIf="employeeInfo">
+            <strong>Matricule:</strong> {{ employeeInfo.matricule }}
+          </div>
+
+          <div class="result-item" *ngIf="employeeInfo">
+            <strong>Poste:</strong> {{ employeeInfo.poste }}
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Instructions -->
+  <div class="instructions" *ngIf="!isScanning">
+    <mat-card class="instruction-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>info</mat-icon>
+          Instructions
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <ul>
+          <li>Cliquez sur "Démarrer le Scan" pour activer la caméra</li>
+          <li>Placez le QR code de l'employé dans le cadre de scan</li>
+          <li>Le pointage sera automatiquement enregistré</li>
+          <li>Assurez-vous d'avoir l'autorisation d'accès à la caméra</li>
+        </ul>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

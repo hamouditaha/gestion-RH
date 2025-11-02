@@ -1,0 +1,65 @@
+<div class="app-container">
+  <!-- Sidebar Navigation -->
+  <nav class="app-sidenav">
+    <div class="sidenav-header">
+      <span class="material-icons app-icon">business</span>
+      <span class="app-title">Gestion Présence</span>
+    </div>
+
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a routerLink="/dashboard" routerLinkActive="active" class="nav-link">
+          <span class="material-icons">dashboard</span>
+          <span>Tableau de Bord</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a routerLink="/employees" routerLinkActive="active" class="nav-link">
+          <span class="material-icons">people</span>
+          <span>Employés</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a routerLink="/presences" routerLinkActive="active" class="nav-link">
+          <span class="material-icons">schedule</span>
+          <span>Présences</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a routerLink="/salaries" routerLinkActive="active" class="nav-link">
+          <span class="material-icons">attach_money</span>
+          <span>Salaires</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a routerLink="/qr-scanner" routerLinkActive="active" class="nav-link">
+          <span class="material-icons">qr_code_scanner</span>
+          <span>Scanner QR</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content-area">
+    <header class="main-toolbar">
+      <span>Application de Gestion des Présences</span>
+      <div class="toolbar-actions">
+        <button class="icon-btn">
+          <span class="material-icons">notifications</span>
+        </button>
+        <button class="icon-btn">
+          <span class="material-icons">account_circle</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,268 @@
+.qr-scanner-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.header h1 {
+  color: #3f51b5;
+  margin-bottom: 10px;
+}
+
+.header p {
+  color: #666;
+  font-size: 16px;
+}
+
+/* Scanner Section */
+.scanner-section {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.video-container {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 30px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.camera-video {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  display: block;
+}
+
+/* Scan Overlay */
+.scan-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scan-frame {
+  width: 250px;
+  height: 250px;
+  position: relative;
+  border: 2px solid #3f51b5;
+  border-radius: 12px;
+  background: rgba(63, 81, 181, 0.1);
+}
+
+.corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #3f51b5;
+}
+
+.corner-tl {
+  top: -3px;
+  left: -3px;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 12px 0 0 0;
+}
+
+.corner-tr {
+  top: -3px;
+  right: -3px;
+  border-left: none;
+  border-bottom: none;
+  border-radius: 0 12px 0 0;
+}
+
+.corner-bl {
+  bottom: -3px;
+  left: -3px;
+  border-right: none;
+  border-top: none;
+  border-radius: 0 0 0 12px;
+}
+
+.corner-br {
+  bottom: -3px;
+  right: -3px;
+  border-left: none;
+  border-top: none;
+  border-radius: 0 0 12px 0;
+}
+
+/* Scan Info */
+.scan-info {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+/* Scanner Controls */
+.scanner-controls {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.scan-button, .stop-button {
+  min-width: 160px;
+}
+
+.manual-entry {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.manual-input {
+  width: 200px;
+}
+
+.manual-button {
+  min-width: 180px;
+}
+
+/* Result Section */
+.result-section {
+  margin-bottom: 30px;
+}
+
+.result-card {
+  background: linear-gradient(135deg, #e8f5e8, #f1f8e9);
+  border-left: 4px solid #4caf50;
+}
+
+.result-item {
+  margin-bottom: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(76, 175, 80, 0.2);
+}
+
+.result-item:last-child {
+  border-bottom: none;
+}
+
+.result-item strong {
+  color: #2e7d32;
+}
+
+/* Instructions */
+.instructions {
+  margin-top: 40px;
+}
+
+.instruction-card {
+  background: #f8f9fa;
+}
+
+.instruction-card mat-card-header {
+  margin-bottom: 16px;
+}
+
+.instruction-card mat-icon {
+  color: #3f51b5;
+  margin-right: 8px;
+}
+
+.instruction-card ul {
+  padding-left: 20px;
+}
+
+.instruction-card li {
+  margin-bottom: 8px;
+  color: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .qr-scanner-container {
+    padding: 15px;
+  }
+
+  .scanner-section {
+    padding: 20px;
+  }
+
+  .video-container {
+    width: 100%;
+    max-width: none;
+  }
+
+  .camera-video {
+    width: 100%;
+    height: auto;
+  }
+
+  .scan-frame {
+    width: 200px;
+    height: 200px;
+  }
+
+  .scanner-controls {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .scan-button, .stop-button {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .manual-entry {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .manual-input {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .manual-button {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+/* Snackbar styles */
+.snackbar-success {
+  background: #4caf50 !important;
+  color: white !important;
+}
+
+.snackbar-error {
+  background: #f44336 !important;
+  color: white !important;
+}
+
+.snackbar-info {
+  background: #2196f3 !important;
+  color: white !important;
+}

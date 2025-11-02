@@ -1,0 +1,127 @@
+/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/theming';
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$gestion-presence-primary: mat-palette($mat-indigo);
+$gestion-presence-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$gestion-presence-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$gestion-presence-theme: mat-light-theme($gestion-presence-primary, $gestion-presence-accent, $gestion-presence-warn);
+
+// Include theme styles for Angular Material components.
+@include angular-material-theme($gestion-presence-theme);
+
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #fafafa;
+}
+
+html, body {
+  height: 100%;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Material overrides */
+.mat-mdc-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mat-mdc-button {
+  border-radius: 6px;
+  text-transform: none;
+}
+
+.mat-mdc-raised-button {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.mat-mdc-raised-button:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Form styles */
+.mat-mdc-form-field {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.mat-mdc-input-element {
+  border-radius: 4px;
+}
+
+/* Table styles */
+.mat-mdc-table {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mat-mdc-header-cell {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.mat-mdc-row:hover {
+  background-color: rgba(63, 81, 181, 0.04);
+}
+
+/* Dialog styles */
+.mat-mdc-dialog-container {
+  border-radius: 12px;
+}
+
+.mat-mdc-dialog-title {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+/* Chip styles */
+.mat-mdc-chip {
+  border-radius: 16px;
+}
+
+/* Responsive utilities */
+.mobile-hidden {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .mobile-hidden {
+    display: none;
+  }
+}
