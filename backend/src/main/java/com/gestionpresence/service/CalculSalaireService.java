@@ -1,5 +1,8 @@
 package com.gestionpresence.service;
 
+import com.gestionpresence.dto.BulletinSalaireDTO;
+import com.gestionpresence.exception.BusinessException;
+import com.gestionpresence.exception.ResourceNotFoundException;
 import com.gestionpresence.model.Employee;
 import com.gestionpresence.model.Presence;
 import com.gestionpresence.model.BulletinSalaire;
@@ -88,10 +91,22 @@ public class CalculSalaireService {
         }
     }
     
+
+
+    /**
+     * Calcule le salaire mensuel avec signature compatible avec l'ancien appel
+     */
+    public BulletinSalaireDTO calculerSalaireMensuel(Long employeeId, LocalDate mois) throws ResourceNotFoundException {
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new ResourceNotFoundException("Employé non trouvé avec l'id: " + employeeId));
+        BulletinSalaire bulletin = calculerSalaireMensuel(employee, mois);
+        return convertToDTO(bulletin);
+    }
+
     /**
      * Calcule les salaires pour tous les employés
      */
-    public void calculerTousLesSalaires(LocalDate mois) {
+    public void calculerTousLesSalaires(LocalDate mois) throws BusinessException {
         log.info("Calcul des salaires pour tous les employés - Mois: {}", mois);
 
         List<Employee> employees = employeeRepository.findAll();
@@ -105,19 +120,11 @@ public class CalculSalaireService {
                 log.info("Bulletin calculé et sauvegardé pour {}", employee.getMatricule());
             } catch (Exception e) {
                 log.error("Erreur lors du calcul du salaire pour {}", employee.getMatricule(), e);
+                throw new BusinessException("Erreur lors du calcul des salaires: " + e.getMessage(), e);
             }
         }
 
         log.info("Calcul terminé pour {} employés", bulletins.size());
-    }
-
-    /**
-     * Calcule le salaire mensuel avec signature compatible avec l'ancien appel
-     */
-    public BulletinSalaire calculerSalaireMensuel(Long employeeId, LocalDate mois) {
-        Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new RuntimeException("Employé non trouvé avec l'id: " + employeeId));
-        return calculerSalaireMensuel(employee, mois);
     }
     
     /**
@@ -368,9 +375,30 @@ public class CalculSalaireService {
         public CalculSalaireException(String message) {
             super(message);
         }
-        
+
         public CalculSalaireException(String message, Throwable cause) {
             super(message, cause);
         }
+    }
+
+    private BulletinSalaireDTO convertToDTO(BulletinSalaire bulletin) {
+        return BulletinSalaireDTO.builder()
+                .id(bulletin.getId())
+                .employeeId(bulletin.getEmployee().getId())
+                .employeeMatricule(bulletin.getEmployee().getMatricule())
+                .employeeNom(bulletin.getEmployee().getNom())
+                .employeePrenom(bulletin.getEmployee().getPrenom())
+                .periodeDebut(bulletin.getPeriodeDebut())
+                .periodeFin(bulletin.getPeriodeFin())
+                .salaireBase(bulletin.getSalaireBase())
+                .joursTravailles(bulletin.getJoursTravailles())
+                .joursAbsence(bulletin.getJoursAbsence())
+                .totalRetardsMinutes(bulletin.getTotalRetardsMinutes())
+                .heuresSupplementaires(bulletin.getHeuresSupplementaires())
+                .deductionAbsences(bulletin.getDeductionAbsences())
+                .deductionRetards(bulletin.getDeductionRetards())
+                .salaireNet(bulletin.getSalaireNet())
+                .envoye(bulletin.isEnvoye())
+                .build();
     }
 }

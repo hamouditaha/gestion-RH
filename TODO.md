@@ -9,9 +9,11 @@
 - [x] Move hardcoded values to environment variables (application.yml updated)
 - [x] Add proper logging and monitoring (SLF4J logging added)
 - [x] Improve package structure and modularization
-- [ ] Add Spring Boot Actuator for health checks
-- [ ] Update other controllers with DTOs and validation
-- [ ] Update other services with proper exception handling
+- [x] Add Spring Boot Actuator for health checks
+- [x] Update PresenceController with DTOs and validation
+- [x] Update SalaireController with DTOs and validation
+- [x] Update PresenceService with proper exception handling
+- [x] Update CalculSalaireService with proper exception handling
 
 ## Phase 2: Containerization & Orchestration
 - [ ] Create multi-stage Dockerfile

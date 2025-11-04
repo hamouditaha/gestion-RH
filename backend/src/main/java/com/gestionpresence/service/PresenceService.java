@@ -1,5 +1,7 @@
 package com.gestionpresence.service;
 
+import com.gestionpresence.dto.PresenceDTO;
+import com.gestionpresence.exception.ResourceNotFoundException;
 import com.gestionpresence.model.Employee;
 import com.gestionpresence.model.Presence;
 import com.gestionpresence.repository.EmployeeRepository;
@@ -14,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -30,20 +33,27 @@ public class PresenceService {
     private static final LocalTime HEURE_DEBUT_TRAVAIL = LocalTime.of(9, 0);
     private static final LocalTime HEURE_FIN_TRAVAIL = LocalTime.of(17, 0);
 
-    public List<Presence> findByEmployeeId(Long employeeId) {
-        return presenceRepository.findByEmployeeId(employeeId);
+    public List<PresenceDTO> findByEmployeeId(Long employeeId) {
+        List<Presence> presences = presenceRepository.findByEmployeeId(employeeId);
+        return presences.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
-    public List<Presence> findByPeriode(LocalDate debut, LocalDate fin) {
-        return presenceRepository.findByPeriode(debut, fin);
+    public List<PresenceDTO> findByPeriode(LocalDate debut, LocalDate fin) {
+        List<Presence> presences = presenceRepository.findByPeriode(debut, fin);
+        return presences.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
-    public Presence enregistrerPointage(String matricule, String typePointage, LocalDateTime dateHeurePointage) {
+    public PresenceDTO enregistrerPointage(String matricule, String typePointage, LocalDateTime dateHeurePointage)
+            throws ResourceNotFoundException {
         log.info("Enregistrement du pointage pour {} - Type: {} - Date/Heure: {}", matricule, typePointage, dateHeurePointage);
 
         // Récupérer l'employé avec toutes ses informations
         Employee employee = employeeRepository.findByMatricule(matricule)
-                .orElseThrow(() -> new RuntimeException("Employé non trouvé avec le matricule: " + matricule));
+                .orElseThrow(() -> new ResourceNotFoundException("Employé non trouvé avec le matricule: " + matricule));
 
         log.info("Informations employé: {} {} - Poste: {} - Email: {}",
                 employee.getPrenom(), employee.getNom(), employee.getPoste(), employee.getEmail());
@@ -60,7 +70,7 @@ public class PresenceService {
         log.info("Pointage enregistré avec succès - ID: {} - Employé: {} {} - Type: {}",
                 savedPresence.getId(), employee.getPrenom(), employee.getNom(), typePointage);
 
-        return savedPresence;
+        return convertToDTO(savedPresence);
     }
 
     private void calculerRetard(Presence presence) {
@@ -102,5 +112,19 @@ public class PresenceService {
 
     public List<Presence> getAllPresences() {
         return presenceRepository.findAll();
+    }
+
+    private PresenceDTO convertToDTO(Presence presence) {
+        return PresenceDTO.builder()
+                .id(presence.getId())
+                .employeeId(presence.getEmployee().getId())
+                .employeeMatricule(presence.getEmployee().getMatricule())
+                .employeeNom(presence.getEmployee().getNom())
+                .employeePrenom(presence.getEmployee().getPrenom())
+                .dateHeurePointage(presence.getDateHeurePointage())
+                .typePointage(presence.getTypePointage())
+                .retard(presence.isRetard())
+                .minutesRetard(presence.getMinutesRetard())
+                .build();
     }
 }

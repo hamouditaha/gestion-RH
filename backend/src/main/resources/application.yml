@@ -112,6 +112,19 @@ logging:
   level:
     com.gestionpresence: INFO
 
+# Spring Boot Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,env
+  endpoint:
+    health:
+      show-details: when-authorized
+  info:
+    env:
+      enabled: true
+
 # Logging
 logging:
   level:
