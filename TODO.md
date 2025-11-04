@@ -1,15 +1,43 @@
-# TODO: Add QR Code Copy and Absence Management
+# Production-Ready Spring Boot Application Improvements
 
-## Backend Changes
-- [x] Add base64 QR code endpoint in EmployeeController.java
-- [x] Enhance presence recording in PresenceService.java to include all employee info
-- [x] Add absence checking scheduled task in ScheduledTasks.java
+## Phase 1: Code Quality & Architecture Improvements ✅
+- [x] Create comprehensive TODO.md plan
+- [x] Add DTOs for request/response objects (EmployeeDTO, PresenceDTO, BulletinSalaireDTO)
+- [x] Implement Bean Validation annotations
+- [x] Create custom exceptions and global exception handler (BusinessException, ResourceNotFoundException, GlobalExceptionHandler)
+- [x] Add service interfaces for better abstraction (IEmployeeService)
+- [x] Move hardcoded values to environment variables (application.yml updated)
+- [x] Add proper logging and monitoring (SLF4J logging added)
+- [x] Improve package structure and modularization
+- [ ] Add Spring Boot Actuator for health checks
+- [ ] Update other controllers with DTOs and validation
+- [ ] Update other services with proper exception handling
 
-## Frontend Changes
-- [x] Add copy QR code button in employees.component.html
-- [x] Implement copy functionality in employees.component.ts
+## Phase 2: Containerization & Orchestration
+- [ ] Create multi-stage Dockerfile
+- [ ] Add docker-compose.yml for local development
+- [ ] Configure environment-specific setups
 
-## Testing
-- [x] Test QR code copying functionality
-- [x] Test absence marking logic
-- [x] Verify complete employee info recording on scan
+## Phase 3: Infrastructure as Code
+- [ ] Create Terraform files for AWS infrastructure
+- [ ] Set up EC2/ECS for application deployment
+- [ ] Configure RDS MySQL database
+- [ ] Add VPC, security groups, and load balancer
+
+## Phase 4: CI/CD Pipeline
+- [ ] Create GitHub Actions workflow
+- [ ] Implement automated testing and building
+- [ ] Set up Docker image building and ECR push
+- [ ] Configure ECS deployment with rollback
+
+## Phase 5: Monitoring & Documentation
+- [ ] Add Micrometer for application metrics
+- [ ] Configure health checks and actuator endpoints
+- [ ] Set up logging aggregation
+- [ ] Update README with comprehensive instructions
+- [ ] Add Swagger/OpenAPI documentation
+- [ ] Implement AWS Secrets Manager integration
+
+## Current Status
+**Phase:** 1 - Code Quality & Architecture Improvements (80% complete)
+**Next Step:** Add Spring Boot Actuator and update remaining controllers/services

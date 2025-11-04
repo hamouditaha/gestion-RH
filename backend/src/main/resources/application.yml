@@ -63,25 +63,54 @@ app:
   # Paramètres des salaires
   salaire:
     deduction:
-      jour-absence: 200.0
-      minute-retard: 2.0
+      jour-absence: ${SALAIRE_DEDUCTION_JOUR_ABSENCE:200.0}
+      minute-retard: ${SALAIRE_DEDUCTION_MINUTE_RETARD:2.0}
     heure:
-      debut: "09:00"
-      fin: "17:00"
+      debut: "${SALAIRE_HEURE_DEBUT:09:00}"
+      fin: "${SALAIRE_HEURE_FIN:17:00}"
     jours:
-      ouvrables: 5
-  
+      ouvrables: ${SALAIRE_JOURS_OUVRABLES:5}
+
   # Paramètres QR Code
   qrcode:
-    width: 300
-    height: 300
-    format: PNG
-  
+    width: ${QRCODE_WIDTH:300}
+    height: ${QRCODE_HEIGHT:300}
+    format: ${QRCODE_FORMAT:PNG}
+
   # Sécurité (basique)
   security:
-    allowed-origins: "http://localhost:4200,http://localhost:3000"
+    allowed-origins: "${ALLOWED_ORIGINS:http://localhost:4200,http://localhost:3000}"
     cors:
-      enabled: true
+      enabled: ${CORS_ENABLED:true}
+
+# Configuration des profils
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+logging:
+  level:
+    com.gestionpresence: DEBUG
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+
+logging:
+  level:
+    com.gestionpresence: INFO
 
 # Logging
 logging:
